@@ -2,8 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:fitsSystemWindows="true">
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- 👤 PROFILE CARD -->
+        <!-- PROFILE CARD -->
         <LinearLayout
             android:orientation="vertical"
             android:gravity="center"
@@ -28,8 +27,10 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_marginBottom="8dp"/>
 
+            <!-- 🔥 USER EMAIL -->
             <TextView
-                android:text="Vamshi Vardhan"
+                android:id="@+id/userEmail"
+                android:text="User Email"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#000"
@@ -37,30 +38,33 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:text="DOB: 01-01-2000"
-                android:textColor="#555"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:text="Blood Group: O+"
+                android:text="Welcome to your vault 🔐"
                 android:textColor="#555"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- ➕ BUTTON -->
+        <!-- ADD DOCUMENT -->
         <Button
             android:id="@+id/addDocBtn"
             android:text="Add Document"
-            android:textAllCaps="false"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="#6A1B9A"
             android:textColor="#FFFFFF"/>
 
-        <!-- 📂 TITLE -->
+        <!-- LOGOUT BUTTON -->
+        <Button
+            android:id="@+id/logoutBtn"
+            android:text="Logout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"/>
+
+        <!-- TITLE -->
         <TextView
             android:text="Your Documents"
             android:textSize="16sp"
@@ -69,11 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- 📂 LIST -->
+        <!-- RECYCLER VIEW -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             android:layout_marginTop="8dp"/>
 

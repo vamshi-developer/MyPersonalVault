@@ -21,21 +21,30 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     Button loginBtn;
-    TextView signupText; // 👈 NEW
+    TextView signupText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 🔥 AUTO LOGIN CHECK
+        boolean isLoggedIn = getSharedPreferences("MyApp", MODE_PRIVATE)
+                .getBoolean("isLoggedIn", false);
+
+        if (isLoggedIn) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         loginBtn = findViewById(R.id.loginBtn);
-        signupText = findViewById(R.id.signupText); // 👈 NEW
+        signupText = findViewById(R.id.signupText);
 
         loginBtn.setOnClickListener(v -> loginUser());
 
-        // 🚀 GO TO SIGNUP SCREEN
         signupText.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SignupActivity.class));
         });
@@ -46,17 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         String emailText = email.getText().toString().trim();
         String passwordText = password.getText().toString().trim();
 
-        // 🔒 Validation
         if (emailText.isEmpty() || passwordText.isEmpty()) {
             Toast.makeText(this, "Enter email & password", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 🔄 Disable button while loading
         loginBtn.setEnabled(false);
         loginBtn.setText("Logging in...");
 
-        // ✅ Request body
         Map<String, String> map = new HashMap<>();
         map.put("email", emailText);
         map.put("password", passwordText);
@@ -69,15 +75,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                // 🔄 Enable button again
                 loginBtn.setEnabled(true);
                 loginBtn.setText("Login");
 
                 if (response.isSuccessful()) {
 
+                    // 🔥 SAVE SESSION + EMAIL
+                    getSharedPreferences("MyApp", MODE_PRIVATE)
+                            .edit()
+                            .putBoolean("isLoggedIn", true)
+                            .putString("email", emailText)
+                            .apply();
+
                     Toast.makeText(LoginActivity.this, "Login Success ✅", Toast.LENGTH_SHORT).show();
 
-                    // 🚀 Go to Home
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
 
@@ -89,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-                // 🔄 Enable button again
                 loginBtn.setEnabled(true);
                 loginBtn.setText("Login");
 

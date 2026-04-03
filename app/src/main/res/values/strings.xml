@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyPersonalVault</string>
+    <string name="login">Login</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="login_success">Login Success</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+</resources>
